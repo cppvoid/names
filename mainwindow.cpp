@@ -9,6 +9,7 @@
 #include <QCloseEvent>
 #include <QPoint>
 #include <QMenu>
+#include <QDesktopWidget>
 
 MainWindow::MainWindow(QWidget *parent)
     :
@@ -19,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    setWindowTitle("Test");
+    setWindowTitle("Names");
 
     ui->listView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->listView, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showContextMenu(QPoint)));
@@ -34,6 +35,12 @@ MainWindow::MainWindow(QWidget *parent)
     {
         QMessageBox::critical(this, "Error", error.qwhat());
     }
+
+    QDesktopWidget desktop;
+
+    setGeometry(desktop.screen()->width() / 2 - frameGeometry().width() / 2,
+                desktop.screen()->height() / 2 - frameGeometry().height() / 2,
+                frameGeometry().width(), frameGeometry().height());
 }
 
 MainWindow::~MainWindow()
